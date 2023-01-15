@@ -36,18 +36,25 @@ module.exports = {
                loader: "babel-loader",
             },
          },
+         {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules|bower_components)/,
+            loader: "babel-loader",
+            options: { presets: ["@babel/env", "@babel/preset-react"] },
+         },
       ],
    },
 
    plugins: [
       new ModuleFederationPlugin({
          name: "first_app",
+         // library: { type: "var", name: "first_app" },
          filename: "remoteEntry.js",
          remotes: {
             shared: "shared@http://localhost:8083/remoteEntry.js",
          },
          exposes: {
-            "./first_app": "./src/App",
+            "./FirstApp": "./src/App",
          },
          shared: {
             ...deps,

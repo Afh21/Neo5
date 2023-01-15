@@ -36,28 +36,26 @@ module.exports = {
                loader: "babel-loader",
             },
          },
+         {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules|bower_components)/,
+            loader: "babel-loader",
+            options: { presets: ["@babel/env", "@babel/preset-react"] },
+         },
       ],
    },
 
    plugins: [
       new ModuleFederationPlugin({
          name: "shared",
+         // library: { type: "var", name: "shared" },
          filename: "remoteEntry.js",
          remotes: {},
          exposes: {
-            // Components
+            "./CardList": "./src/components/CardList",
+            "./useFetch": "./src/hooks/useFetch",
          },
-         shared: {
-            ...deps,
-            react: {
-               singleton: true,
-               requiredVersion: deps.react,
-            },
-            "react-dom": {
-               singleton: true,
-               requiredVersion: deps["react-dom"],
-            },
-         },
+         shared: ["react", "react-dom"],
       }),
       new HtmlWebPackPlugin({
          template: "./src/index.html",

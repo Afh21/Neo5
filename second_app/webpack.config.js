@@ -36,18 +36,25 @@ module.exports = {
                loader: "babel-loader",
             },
          },
+         {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules|bower_components)/,
+            loader: "babel-loader",
+            options: { presets: ["@babel/env", "@babel/preset-react"] },
+         },
       ],
    },
 
    plugins: [
       new ModuleFederationPlugin({
          name: "second_app",
+         // library: { type: "var", name: "second_app" },
          filename: "remoteEntry.js",
          remotes: {
             shared: "shared@http://localhost:8083/remoteEntry.js",
          },
          exposes: {
-            "./second_app": "./src/App",
+            "./SecondApp": "./src/App",
          },
          shared: {
             ...deps,
@@ -60,6 +67,7 @@ module.exports = {
                requiredVersion: deps["react-dom"],
             },
          },
+         // ["react", "react-dom"],
       }),
       new HtmlWebPackPlugin({
          template: "./src/index.html",

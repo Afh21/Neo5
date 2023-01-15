@@ -36,6 +36,12 @@ module.exports = {
                loader: "babel-loader",
             },
          },
+         {
+            test: /\.(js|jsx)$/,
+            exclude: /(node_modules|bower_components)/,
+            loader: "babel-loader",
+            options: { presets: ["@babel/env", "@babel/preset-react"] },
+         },
       ],
    },
 
@@ -48,17 +54,22 @@ module.exports = {
             second_app: "second_app@http://localhost:8082/remoteEntry.js",
          },
          exposes: {},
-         shared: {
-            ...deps,
-            react: {
-               singleton: true,
-               requiredVersion: deps.react,
+         shared:
+            // ["react", "react-dom", "axios"],
+            {
+               ...deps,
+               react: {
+                  singleton: true,
+                  requiredVersion: deps.react,
+               },
+               "react-dom": {
+                  singleton: true,
+                  requiredVersion: deps["react-dom"],
+               },
+               axios: {
+                  singleton: true,
+               },
             },
-            "react-dom": {
-               singleton: true,
-               requiredVersion: deps["react-dom"],
-            },
-         },
       }),
       new HtmlWebPackPlugin({
          template: "./src/index.html",
