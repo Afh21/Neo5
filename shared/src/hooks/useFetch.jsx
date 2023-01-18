@@ -15,7 +15,9 @@ export const useFetch = (url) => {
       if (!url) return;
 
       http
-         .get(url, { cancelToken: source.token })
+         .get(url, {
+            cancelToken: source.token,
+         })
          .then((response) => {
             setLoading(false);
             setData(response?.data);

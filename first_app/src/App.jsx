@@ -1,18 +1,23 @@
-import React, { useEffect } from "react";
+import * as transl from "shared/translation";
+import * as hooks from "shared/hooks";
+import Characters from "./Characters";
 import ReactDOM from "react-dom";
+import React from "react";
 import "./index.css";
-import { useFetch } from "../../shared/src/hooks/useFetch";
 
 const API_URL = "https://rickandmortyapi.com/api/character";
-const CardList = React.lazy(() => import("shared/CardList"));
+const IntlProvider = React.lazy(() => import("shared/IntlWrapper"));
+const locale = transl.LOCALES.ENGLISH;
 
 const App = () => {
-   const { data } = useFetch(API_URL);
+   const { data } = hooks.useFetch(API_URL);
 
    return (
       <div className='container'>
          <React.Suspense fallback={"loading"}>
-            <CardList items={data?.results} />
+            <IntlProvider message={transl.messages[locale]}>
+               <Characters data={data ?? []} />
+            </IntlProvider>
          </React.Suspense>
       </div>
    );

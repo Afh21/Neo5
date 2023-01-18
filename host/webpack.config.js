@@ -52,24 +52,23 @@ module.exports = {
          remotes: {
             first_app: "first_app@http://localhost:8081/remoteEntry.js",
             second_app: "second_app@http://localhost:8082/remoteEntry.js",
+            shared: "shared@http://localhost:8083/remoteEntry.js",
          },
          exposes: {},
-         shared:
-            // ["react", "react-dom", "axios"],
-            {
-               ...deps,
-               react: {
-                  singleton: true,
-                  requiredVersion: deps.react,
-               },
-               "react-dom": {
-                  singleton: true,
-                  requiredVersion: deps["react-dom"],
-               },
-               axios: {
-                  singleton: true,
-               },
+         shared: {
+            ...deps,
+            react: {
+               singleton: true,
+               requiredVersion: deps.react,
             },
+            "react-dom": {
+               singleton: true,
+               requiredVersion: deps["react-dom"],
+            },
+            axios: {
+               singleton: true,
+            },
+         },
       }),
       new HtmlWebPackPlugin({
          template: "./src/index.html",

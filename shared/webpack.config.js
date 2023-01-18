@@ -48,12 +48,15 @@ module.exports = {
    plugins: [
       new ModuleFederationPlugin({
          name: "shared",
-         // library: { type: "var", name: "shared" },
          filename: "remoteEntry.js",
          remotes: {},
          exposes: {
             "./CardList": "./src/components/CardList",
-            "./useFetch": "./src/hooks/useFetch",
+            "./IntlWrapper": "./src/components/IntlWrapper",
+            "./IntlFormatterMessage":
+               "./src/components/IntFormatterMessage.jsx",
+            "./hooks": "./src/hooks/",
+            "./translation": "./src/i18n/",
          },
          shared: ["react", "react-dom"],
       }),

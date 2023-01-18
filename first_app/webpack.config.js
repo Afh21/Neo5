@@ -48,7 +48,6 @@ module.exports = {
    plugins: [
       new ModuleFederationPlugin({
          name: "first_app",
-         // library: { type: "var", name: "first_app" },
          filename: "remoteEntry.js",
          remotes: {
             shared: "shared@http://localhost:8083/remoteEntry.js",
