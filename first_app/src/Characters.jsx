@@ -7,10 +7,10 @@ const IntlFormatterMsg = React.lazy(() =>
 
 function Characters({ data }) {
    return (
-      <React.Suspense fallback={"loading"}>
-         <p>
+      <React.Suspense fallback={"Loading"}>
+         <h2>
             <IntlFormatterMsg id='title_first_app' />
-         </p>
+         </h2>
          <CardList items={data?.results} />
       </React.Suspense>
    );

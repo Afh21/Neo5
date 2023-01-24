@@ -57,8 +57,9 @@ module.exports = {
                "./src/components/IntFormatterMessage.jsx",
             "./hooks": "./src/hooks/",
             "./translation": "./src/i18n/",
+            "./ContextProvider": "./src/context/ContextProvider",
          },
-         shared: ["react", "react-dom"],
+         shared: ["react", "react-dom", "react-router-dom"],
       }),
       new HtmlWebPackPlugin({
          template: "./src/index.html",

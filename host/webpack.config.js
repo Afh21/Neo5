@@ -68,6 +68,10 @@ module.exports = {
             axios: {
                singleton: true,
             },
+            "react-router-dom": {
+               singleton: true,
+               requiredVersion: deps["react-router-dom"],
+            },
          },
       }),
       new HtmlWebPackPlugin({

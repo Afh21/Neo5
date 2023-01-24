@@ -6,19 +6,21 @@ const NOPHOTO =
 
 function Card({ card }) {
    return (
-      <>
+      <div className='container'>
          <div className='card'>
-            <img
-               className='card__img'
-               src={card?.image || NOPHOTO}
-               loading='lazy'
-               alt='char_img'
-            />
             <div className='card__body'>
-               <p className='card__text'>{card?.name}</p>
+               <img
+                  className='card__img'
+                  src={card?.image || NOPHOTO}
+                  loading='lazy'
+                  alt='char_img'
+               />
+               <div className='card__text'>
+                  <p>{card?.name}</p>
+               </div>
             </div>
          </div>
-      </>
+      </div>
    );
 }
 

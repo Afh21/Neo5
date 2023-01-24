@@ -4,7 +4,10 @@
    "description": "Test microfrontends for Neo5",
    "main": "index.js",
    "scripts": {
-      "start": "concurrently \"cd shared && npm start\" \"cd first_app && npm start\" \"cd second_app && npm start\" \"cd host && npm start\""
+      "start": "concurrently \"cd shared && npm start\" \"cd first_app && npm start\" \"cd second_app && npm start\" \"cd host && npm start\"",
+      "install:first": "npm install && npm run install:all",
+      "install:all": "concurrently \"cd shared && npm install\" \"cd first_app && npm install\" \"cd second_app && npm install\" \"cd host && npm install\"",
+      "clean": "concurrently \"cd shared && rm -rf ./node_modules && rm package-lock.json\" \"cd first_app && rm -rf ./node_modules && rm package-lock.json\" \"cd second_app && rm -rf ./node_modules && rm package-lock.json\" \"cd host && rm -rf ./node_modules && rm package-lock.json\" \"cd . && rm -rf ./node_modules && rm package-lock.json\""
    },
    "repository": {
       "type": "git",

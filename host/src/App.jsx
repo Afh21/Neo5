@@ -1,43 +1,35 @@
+import FirstApp from "first_app/FirstApp";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SecondApp from "second_app/SecondApp";
+import { ContextProvider, WrapperProvider } from "shared/ContextProvider";
+import * as transl from "shared/translation";
+import Header from "./components/Header";
 import "./index.css";
+const IntlProvider = React.lazy(() => import("shared/IntlWrapper"));
 
-const FirstApp = React.lazy(() => import("first_app/FirstApp"));
-const SecondApp = React.lazy(() => import("second_app/SecondApp"));
+const App = () => {
+   const ctxLocale = React.useContext(ContextProvider);
 
-const App = () => (
-   <Router>
-      <div className='container'>
-         <Routes>
-            <Route
-               path='/first'
-               element={
-                  <React.Suspense fallback='loading...'>
-                     <FirstApp />
-                  </React.Suspense>
-               }
-            />
-            <Route
-               path='/second'
-               element={
-                  <React.Suspense fallback='loading...'>
-                     <SecondApp />
-                  </React.Suspense>
-               }
-            />
-         </Routes>
-      </div>
-
-      <h1 className='container__title'>Character Lists</h1>
-      <div className='container__btn_group'>
-         <Link className='btn btn__primary' to='/first'>
-            First App
-         </Link>
-         <Link className='btn btn__secondary' to='/second'>
-            Second App
-         </Link>
-      </div>
-   </Router>
-);
+   return (
+      <WrapperProvider>
+         <Router>
+            <React.Suspense fallback='Loading...'>
+               <IntlProvider
+                  message={transl.messages[ctxLocale?.state?.language]}
+               >
+                  <Header messages={transl.messages} />
+               </IntlProvider>
+            </React.Suspense>
+            <Routes>
+               <Route path='/first_app' element={<FirstApp />} />
+               <Route path='/second_app' element={<SecondApp />} />
+            </Routes>
+         </Router>
+      </WrapperProvider>
+   );
+};
 ReactDOM.render(<App />, document.getElementById("app"));
+
+export default App;
